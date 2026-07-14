@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Detector</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#4facfe,#00f2fe);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            background:white;
+            width:450px;
+            padding:35px;
+            border-radius:15px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.2);
+            text-align:center;
+        }
+
+        h1{
+            color:#333;
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#777;
+            margin-bottom:25px;
+        }
+
+        textarea{
+            width:100%;
+            height:170px;
+            border:2px solid #ddd;
+            border-radius:10px;
+            padding:15px;
+            resize:none;
+            font-size:16px;
+            outline:none;
+            transition:.3s;
+        }
+
+        textarea:focus{
+            border-color:#4facfe;
+        }
+
+        button{
+            width:100%;
+            margin-top:20px;
+            padding:14px;
+            border:none;
+            border-radius:10px;
+            background:#4facfe;
+            color:white;
+            font-size:18px;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        button:hover{
+            background:#2d8cff;
+        }
+
+        .result{
+            margin-top:25px;
+            padding:15px;
+            border-radius:10px;
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .spam{
+            background:#ffe5e5;
+            color:#d63031;
+        }
+
+        .notspam{
+            background:#e8ffe8;
+            color:#27ae60;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📧 Spam Email Detector </h1>
+    <p>Enter an email or message below.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <textarea
+            name="message"
+            placeholder="Type or paste your email here..."
+            required></textarea>
+
+        <button type="submit">
+            Check Message
+        </button>
+    </form>
+
+    {% if result %}
+        <div class="result {% if result == 'Spam' %}spam{% else %}notspam{% endif %}">
+            Prediction: {{ result }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
